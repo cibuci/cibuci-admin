@@ -1,24 +1,23 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest/lib/mui';
 
-export const ArticleList = (props) => (
+export const UserList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="title" />
-            <TextField source="content" />
-            <TextField source="createdAt" />
-            <TextField source="authorId" />
+            <TextField source="email" />
+            <TextField source="password" />
+            <TextField source="emailVerified" />
             <EditButton />
         </Datagrid>
     </List>
 );
 
-export const ArticleCreate = (props) => (
+export const UserCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="title" />
-            <LongTextInput source="body" />
+            <TextInput source="email" />
+            <LongTextInput source="password" />
         </SimpleForm>
     </Create>
 );
