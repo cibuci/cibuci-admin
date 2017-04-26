@@ -22,6 +22,17 @@ we can have a rest client fit for [cibuci-api](https://github.com/cibuci/cibuci-
 <Admin restClient={loopbackRestClient('http://my.api.url/api')} ...>
 ```
 
+## Development
+
+```
+yarn start
+```
+
+you can find some helping docs here:
+
+- [admin-on-rest](https://github.com/marmelab/admin-on-rest)
+- [admin-on-rest tutorial](https://marmelab.com/admin-on-rest//Tutorial.html)
+
 ------
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
