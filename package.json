@@ -5,6 +5,7 @@
   "dependencies": {
     "admin-on-rest": "~1.0.0",
     "aor-loopback": "^1.2.2",
+    "aor-rich-text-input": "^1.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },

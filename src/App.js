@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
-import { Admin, Resource } from 'admin-on-rest';
+import { Admin, Delete, Resource } from 'admin-on-rest';
+
+import './App.css';
+
 import loopbackRestClient, { authClient } from 'aor-loopback';
-import { ArticleList, ArticleCreate } from './article';
+import { ArticleList, ArticleCreate, ArticleEdit } from './article';
 import { UserList, UserCreate } from './user';
-import { Menu } from './Menu';
 
 class App extends Component {
   render() {
     return (
       <Admin
-        menu={Menu}
-        title="辞不辞管理工具"
-        restClient={loopbackRestClient('http://localhost:4000/api')}
-        authClient={authClient('http://localhost:4000/api/users')}
+        title="cibuci.com Admin"
+        restClient={loopbackRestClient('http://api.cibuci.com/api')}
+        authClient={authClient('http://api.cibuci.com/api/users')}
         >
-        <Resource name="users" list={UserList} create={UserCreate} />
-        <Resource name="articles" list={ArticleList} create={ArticleCreate} />
+        <Resource name="users" remove={Delete} list={UserList} create={UserCreate} />
+        <Resource
+          name="articles"
+          list={ArticleList}
+          create={ArticleCreate}
+          edit={ArticleEdit}
+          remove={Delete}
+        />
       </Admin>
     );
   }
