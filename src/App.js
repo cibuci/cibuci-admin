@@ -12,8 +12,8 @@ class App extends Component {
     return (
       <Admin
         title="cibuci.com Admin"
-        restClient={loopbackRestClient('http://api.cibuci.com/api')}
-        authClient={authClient('http://api.cibuci.com/api/users')}
+        restClient={loopbackRestClient('https://api.cibuci.com/api')}
+        authClient={authClient('https://api.cibuci.com/api/users')}
         >
         <Resource name="users" remove={Delete} list={UserList} create={UserCreate} />
         <Resource
