@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Edit, DateInput, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest/lib/mui';
+import { List, Edit, DateInput, ImageInput, ImageField, TabbedForm, FormTab, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest/lib/mui';
 
 import RichTextInput from 'aor-rich-text-input';
 
@@ -30,15 +30,21 @@ export const ArticleCreate = (props) => (
 
 export const ArticleEdit = (props) => (
   <Edit {...props}>
-    <SimpleForm>
-      <TextInput source="title" />
-      <TextInput source="summary" />
-      <TextInput source="cover" />
-      <DateInput source="createdAt" />
-      <RichTextInput source="content" />
-      <ReferenceInput source="authorId" reference="users">
-        <SelectInput optionText="username" />
-      </ReferenceInput>
-    </SimpleForm>
+    <TabbedForm>
+      <FormTab label="meta">
+        <TextInput source="title" options={{ fullWidth: true }}  />
+        <LongTextInput source="summary" options={{ fullWidth: true }}  />
+        <ImageInput source="cover">
+          <ImageField source="cover" />
+        </ImageInput>
+        <DateInput source="createdAt" />
+        <ReferenceInput source="authorId" reference="users">
+          <SelectInput optionText="username" />
+        </ReferenceInput>
+      </FormTab>
+      <FormTab label="content">
+        <RichTextInput source="content" />
+      </FormTab>
+    </TabbedForm>
   </Edit>
 );
