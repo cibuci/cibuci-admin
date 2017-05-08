@@ -5,6 +5,7 @@ import './App.css';
 
 import loopbackRestClient, { authClient } from 'aor-loopback';
 import { ArticleList, ArticleCreate, ArticleEdit } from './article';
+import { TopicList, TopicCreate, TopicEdit } from './topic';
 import { UserList, UserCreate } from './user';
 import addUploadFeature from './upload';
 
@@ -19,12 +20,24 @@ class App extends Component {
         restClient={uploadCapableClient}
         authClient={authClient('https://api.cibuci.com/api/users')}
         >
-        <Resource name="users" remove={Delete} list={UserList} create={UserCreate} />
+        <Resource
+          name="users"
+          remove={Delete}
+          list={UserList}
+          create={UserCreate}
+        />
         <Resource
           name="articles"
           list={ArticleList}
           create={ArticleCreate}
           edit={ArticleEdit}
+          remove={Delete}
+        />
+        <Resource
+          name="topics"
+          list={TopicList}
+          create={TopicCreate}
+          edit={TopicEdit}
           remove={Delete}
         />
       </Admin>
