@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <Admin
-        title="cibuci.com Admin"
+        title="辞不辞管理后台"
         restClient={uploadCapableClient}
         authClient={authClient('https://api.cibuci.com/api/users')}
         >

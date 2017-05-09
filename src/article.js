@@ -1,7 +1,8 @@
 import React from 'react';
-import { List, Edit, DateInput, DateField, ImageInput, ImageField, TabbedForm, FormTab, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest/lib/mui';
-
+import { List, Edit, DateInput, NumberInput, DateField, ImageInput, ImageField, TabbedForm, FormTab, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest/lib/mui';
 import RichTextInput from 'aor-rich-text-input';
+
+import toolbar from './utils/toolbar';
 
 export const ArticleList = (props) => (
     <List {...props}>
@@ -13,6 +14,7 @@ export const ArticleList = (props) => (
               <TextField source="username" />
             </ReferenceField>
             <TextField source="cover" />
+            <TextField source="readCount" />
             <EditButton />
         </Datagrid>
     </List>
@@ -24,7 +26,7 @@ export const ArticleCreate = (props) => (
             <TextInput source="title" />
             <TextInput source="summary" />
             <TextInput source="cover" />
-            <RichTextInput source="content" />
+            <RichTextInput source="content" toolbar={toolbar} />
         </SimpleForm>
     </Create>
 );
@@ -32,17 +34,18 @@ export const ArticleCreate = (props) => (
 export const ArticleEdit = (props) => (
   <Edit {...props}>
     <TabbedForm>
-      <FormTab label="meta">
+      <FormTab label="内容">
+        <RichTextInput source="content" toolbar={toolbar}  />
+      </FormTab>
+      <FormTab label="其他信息">
         <TextInput source="title" options={{ fullWidth: true }}  />
         <LongTextInput source="summary" options={{ fullWidth: true }}  />
         <TextInput source="cover" options={{ fullWidth: true }}  />
         <DateInput source="createdAt" />
+        <NumberInput source="readCount" />
         <ReferenceInput source="authorId" reference="users">
           <SelectInput optionText="username" />
         </ReferenceInput>
-      </FormTab>
-      <FormTab label="content">
-        <RichTextInput source="content" />
       </FormTab>
     </TabbedForm>
   </Edit>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { List, Edit, DateInput, NumberField, NumberInput, DateField, ImageInput, ImageField, TabbedForm, FormTab, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest/lib/mui';
-
 import RichTextInput from 'aor-rich-text-input';
+
+import toolbar from './utils/toolbar';
 
 export const TopicList = (props) => (
     <List {...props}>
@@ -23,8 +24,7 @@ export const TopicCreate = (props) => (
         <SimpleForm>
             <TextInput source="title" />
             <TextInput source="tab" />
-            <DateInput source="createdAt" />
-            <RichTextInput source="content" />
+            <RichTextInput source="content" toolbar={toolbar} />
         </SimpleForm>
     </Create>
 );
@@ -32,7 +32,10 @@ export const TopicCreate = (props) => (
 export const TopicEdit = (props) => (
   <Edit {...props}>
     <TabbedForm>
-      <FormTab label="meta">
+      <FormTab label="内容">
+        <RichTextInput source="content" toolbar={toolbar} />
+      </FormTab>
+      <FormTab label="其他信息">
         <TextInput source="title" options={{ fullWidth: true }}  />
         <LongTextInput source="tab" options={{ fullWidth: true }}  />
         <NumberInput source="commentsCount" />
@@ -40,9 +43,6 @@ export const TopicEdit = (props) => (
         <ReferenceInput source="authorId" reference="users">
           <SelectInput optionText="username" />
         </ReferenceInput>
-      </FormTab>
-      <FormTab label="content">
-        <RichTextInput source="content" />
       </FormTab>
     </TabbedForm>
   </Edit>
