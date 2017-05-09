@@ -8,7 +8,9 @@
     "aor-rich-text-input": "^1.0.1",
     "qiniu": "^6.1.13",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "uuid": "^3.0.1",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

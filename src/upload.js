@@ -1,16 +1,43 @@
-/**
- * Convert a `File` object returned by the upload input into
- * a base 64 string. That's easier to use on FakeRest, used on
- * the ng-admin example. But that's probably not the most optimized
- * way to do in a production database.
- */
-const convertFileToBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+import 'whatwg-fetch';
+import uuidV4 from 'uuid/v4';
 
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-});
+function generateKey(resource, id, field) {
+  return `community/${resource}/${id}/${field}/${uuidV4()}`;
+}
+
+function fetchUptoken(data, key) {
+  const url = `http://api.cibuci.com/util/qiniu/token?file_name=${key}`;
+
+  return fetch(url)
+    .then(function(response) {
+      return response.json()
+    }).catch(function(ex) {
+      console.log('parsing failed', ex)
+    });
+}
+
+function uploadFile(uptoken, key, params) {
+  const url = 'https://up-z1.qbox.me';
+  const file = params.data.cover[0];
+
+  const data = new FormData();
+  data.append('file', file);
+  data.append('token', uptoken);
+  data.append('key', key);
+
+  return fetch(url, {
+    method: 'POST',
+    body: data
+  })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function({ key }) {
+      return {
+        cover: `http://cdn-qn0.cibuci.com/${key}`,
+      };
+    });
+}
 
 /**
  * For posts update only, convert uploaded image in base 64 and attach it to
@@ -22,34 +49,24 @@ const addUploadCapabilities = requestHandler => (type, resource, params) => {
       switch (resource) {
         case 'articles': {
           if (params.data.cover && params.data.cover.length) {
-            
+            const key = generateKey('article', params.data.id, 'cover');
+            return fetchUptoken(params.data, key)
+              .then(function({ token }) {
+                return uploadFile(token, key, params);
+              })
+              .then(cover => requestHandler(type, resource, {
+                  ...params,
+                  data: {
+                    ...params.data,
+                    ...cover
+                  },
+              }));
           }
         }
-          console.log(params.data);
-          console.log('----------');
           break;
         default:
           break;
       }
-
-        // if (params.data.pictures && params.data.pictures.length) {
-        //     // only freshly dropped pictures are instance of File
-        //     const formerPictures = params.data.pictures.filter(p => !(p instanceof File));
-        //     const newPictures = params.data.pictures.filter(p => p instanceof File);
-        //
-        //     return Promise.all(newPictures.map(convertFileToBase64))
-        //         .then(base64Pictures => base64Pictures.map(picture64 => ({
-        //             src: picture64,
-        //             title: `${params.data.title}`,
-        //         })))
-        //         .then(transformedNewPictures => requestHandler(type, resource, {
-        //             ...params,
-        //             data: {
-        //                 ...params.data,
-        //                 pictures: [...transformedNewPictures, ...formerPictures],
-        //             },
-        //         }));
-        // }
     }
 
     return requestHandler(type, resource, params);

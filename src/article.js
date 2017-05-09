@@ -40,7 +40,10 @@ export const ArticleEdit = (props) => (
       <FormTab label="其他信息">
         <TextInput source="title" options={{ fullWidth: true }}  />
         <LongTextInput source="summary" options={{ fullWidth: true }}  />
-        <TextInput source="cover" options={{ fullWidth: true }}  />
+        <ImageField source="cover" title="title" />
+        <ImageInput source="cover">
+          <ImageField title="title" />
+        </ImageInput>
         <DateInput source="createdAt" />
         <NumberInput source="readCount" />
         <ReferenceInput source="authorId" reference="users">
