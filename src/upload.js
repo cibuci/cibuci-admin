@@ -6,7 +6,7 @@ function generateKey(resource, id, field) {
 }
 
 function fetchUptoken(data, key) {
-  const url = `http://api.cibuci.com/util/qiniu/token?file_name=${key}`;
+  const url = `https://api.cibuci.com/util/qiniu/token?file_name=${key}`;
 
   return fetch(url)
     .then(function(response) {
