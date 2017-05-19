@@ -14,6 +14,7 @@ export const ArticleList = (props) => (
               <TextField source="username" />
             </ReferenceField>
             <TextField source="cover" />
+            <TextField source="status" />
             <TextField source="readCount" />
             <EditButton />
         </Datagrid>
