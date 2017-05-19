@@ -49,6 +49,10 @@ const addUploadCapabilities = requestHandler => (type, resource, params) => {
       switch (resource) {
         case 'articles': {
           if (params.data.cover && params.data.cover.length) {
+            if (typeof params.data.cover === 'string') {
+              return requestHandler(type, resource, params);
+            }
+
             const key = generateKey('article', params.data.id, 'cover');
             return fetchUptoken(params.data, key)
               .then(function({ token }) {
@@ -62,8 +66,8 @@ const addUploadCapabilities = requestHandler => (type, resource, params) => {
                   },
               }));
           }
-        }
           break;
+        }
         default:
           break;
       }
