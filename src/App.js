@@ -6,7 +6,7 @@ import './App.css';
 import loopbackRestClient, { authClient } from 'aor-loopback';
 import { ArticleList, ArticleCreate, ArticleEdit } from './article';
 import { TopicList, TopicCreate, TopicEdit } from './topic';
-import { UserList, UserCreate } from './user';
+import { UserList, UserCreate, UserEdit } from './user';
 import addUploadFeature from './upload';
 
 const restClient = loopbackRestClient('https://api.cibuci.com/api');
@@ -25,6 +25,7 @@ class App extends Component {
           remove={Delete}
           list={UserList}
           create={UserCreate}
+          edit={UserEdit}
         />
         <Resource
           name="articles"

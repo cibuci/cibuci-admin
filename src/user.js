@@ -21,3 +21,13 @@ export const UserCreate = (props) => (
         </SimpleForm>
     </Create>
 );
+
+export const UserEdit = (props) => (
+  <Edit {...props}>
+    <SimpleForm>
+      <DisabledInput source="id" />
+      <DisabledInput source="email" />
+      <DisabledInput source="username" />
+    </SimpleForm>
+  </Edit>
+);

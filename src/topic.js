@@ -13,6 +13,8 @@ export const TopicList = (props) => (
             <ReferenceField source="authorId" reference="users">
               <TextField source="username" />
             </ReferenceField>
+            <TextField source="rank" />
+            <TextField source="mark" />
             <NumberField source="commentsCount" />
             <EditButton />
         </Datagrid>
@@ -32,17 +34,25 @@ export const TopicCreate = (props) => (
 export const TopicEdit = (props) => (
   <Edit {...props}>
     <TabbedForm>
-      <FormTab label="内容">
-        <RichTextInput source="content" toolbar={toolbar} />
-      </FormTab>
       <FormTab label="其他信息">
         <TextInput source="title" options={{ fullWidth: true }}  />
-        <LongTextInput source="tab" options={{ fullWidth: true }}  />
+        <SelectInput source="tab" choices={[
+          { id: 'share', name: '分享' },
+          { id: 'ask', name: '问答' },
+        ]} />
         <NumberInput source="commentsCount" />
         <DateInput source="createdAt" />
+        <NumberInput source="rank" />
+        <SelectInput source="mark" choices={[
+          { id: 'good', name: '优质帖子' },
+          { id: '', name: '未标记' },
+        ]} />
         <ReferenceInput source="authorId" reference="users">
           <SelectInput optionText="username" />
         </ReferenceInput>
+      </FormTab>
+      <FormTab label="内容">
+        <RichTextInput source="content" toolbar={toolbar} />
       </FormTab>
     </TabbedForm>
   </Edit>
